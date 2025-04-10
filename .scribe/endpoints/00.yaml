@@ -1,0 +1,279 @@
+name: 'Auth Related'
+description: |-
+
+  APIs for managing all user's authentication related
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/login
+    metadata:
+      groupName: 'Auth Related'
+      groupDescription: |-
+
+        APIs for managing all user's authentication related
+      subgroup: ''
+      subgroupDescription: ''
+      title: login
+      description: |-
+        If everything is okay, you'll get a `200` OK response with data.
+
+        Otherwise, the request will fail with a `422` error.
+
+
+
+        <aside class="notice">basepath/api/v1/login</aside>
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      password:
+        name: password
+        description: 'Must be at least 6 characters.'
+        required: true
+        example: '+-0pBNvYgxwmi/#iw'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      '*email':
+        name: '*email'
+        description: ''
+        required: true
+        example: 'you@domain.com in JSON BODY'
+        type: email
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      '*password':
+        name: '*password'
+        description: ''
+        required: true
+        example: 'You@@1233 in JSON BODY'
+        type: password
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      email: gbailey@example.net
+      password: '+-0pBNvYgxwmi/#iw'
+      '*email': 'you@domain.com in JSON BODY'
+      '*password': 'You@@1233 in JSON BODY'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+          "token_created_at": "10-04-2025 12:03:20",
+          "access_token": "eyJ0eXACJh.....3-l4urituri",
+          "token_type": "bearer",
+          "expires_in": 3600, (in minutes)
+          "refresh_expires_in": 1209600, (in minutes)
+          "user": {
+          "id": 1,
+          "name": "Test User",
+          "email": "test@taptik.in",
+          "mobile": "9876543212",
+          "parentId": null,
+          "email_verify_at": null,
+          "mobile_verify_at": null,
+          "free_plan_expire_at": "2025-03-15"
+          }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+          "email": [
+          "The email field is required."
+          ],
+          "password": [
+          "The password field is required."
+          ]
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/refresh
+    metadata:
+      groupName: 'Auth Related'
+      groupDescription: |-
+
+        APIs for managing all user's authentication related
+      subgroup: ''
+      subgroupDescription: ''
+      title: refresh
+      description: |-
+        If everything is okay, you'll get a `200` OK response with data.
+
+        Otherwise, the request will fail with a `422` and `500` error.
+
+
+
+        <aside class="notice">basepath/api/v1/refresh</aside>
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer _token required'
+      'Accept:': 'application/json required'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+          "token_created_at": "10-04-2025 12:29:48",
+          "access_token": "eyJ0eXACJh.....3-l4urituri",
+          "token_type": "bearer",
+          "expires_in": 3600,
+          "refresh_expires_in": 1209600,
+          "user": null
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+          "error": "Token not provided"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+          "message": "Could not decode token: Error while decoding from Base64Url, invalid base64 characters detected",
+          "exception": "PHPOpenSourceSaver\\JWTAuth\\Exceptions\\TokenInvalidException",
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/logout
+    metadata:
+      groupName: 'Auth Related'
+      groupDescription: |-
+
+        APIs for managing all user's authentication related
+      subgroup: ''
+      subgroupDescription: ''
+      title: logout
+      description: |-
+        If everything is okay, you'll get a `200` OK response with data.
+
+        Otherwise, the request will fail with a `404` error,
+
+
+
+        <aside class="notice">basepath/api/v1/logout</aside>
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer _token required'
+      'Accept:': 'application/json required'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+          "message": "User successfully signed out"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+          "status": false,
+          "status_code": 401,
+          "message": "Unauthenticated..."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+          "error": "Token not provided"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+          "message": "Could not decode token: Error while decoding from Base64Url, invalid base64 characters detected",
+          "exception": "PHPOpenSourceSaver\\JWTAuth\\Exceptions\\TokenInvalidException",
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
