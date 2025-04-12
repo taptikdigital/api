@@ -34,7 +34,6 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
         'email_key',
         'mobile_key',
-        'subscription_id',
         'user_role_id',
         'is_active',
         'google_id',
@@ -59,14 +58,34 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-      // Implement JWTSubject methods
-      public function getJWTIdentifier()
-      {
-          return $this->getKey();
-      }
-  
-      public function getJWTCustomClaims()
-      {
-          return [];
-      }
+    // Implement JWTSubject methods
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class, 'subscription_id')->select('id', 'name', 'slug');
+    }
+    
+    public function userActiveSubscription()
+    {
+        return $this->hasOne(UserSubscription::class, 'user_id')->select('id', 'subscription_status', 'next_payment_date', 'created_at')->latestOfMany();
+    }
+
+    public function project()
+    {
+        return $this->hasMany(Project::class, 'user_id', 'id');
+    }
+
+    public function configuration()
+    {
+        return $this->hasMany(Configuration::class, 'user_id', 'id');
+    }
 }

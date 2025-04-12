@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
@@ -13,30 +14,49 @@ class CustomJwtAuthenticate
 {
     public function handle(Request $request, Closure $next)
     {
-        echo "before try ";
-        die();
+        // echo "id = ".$request->user_id;
+        // dd($request->path());
+        // dd($request->all());
 
-        try {
-
-            echo "try";
-            die();
-
-            if (! auth('api')->check()) {
-                throw new AuthenticationException('Unauthenticated.');
-            }
+        // Bypass token check for public routes like "login"
+        if ($request->is('docs')) {
             return $next($request);
-        } catch (TokenExpiredException $e) {
-            echo "catch";
-            return response()->json(['message' => 'Token has expired and can no longer be refreshed....'], 401);
-        } catch (TokenInvalidException $e) {
-            echo "catch 2";
-            return response()->json(['message' => 'Token is invalid'], 401);
-        } catch (JWTException $e) {
-            echo "catch 3";
-            return response()->json(['message' => 'Authorization token not found'], 401);
-        } catch (AuthenticationException $e) {
-            echo "catch 4";
-            return response()->json(['message' => $e->getMessage() ?: 'Unauthenticated.'], 401);
         }
+
+        if ($request->is('api/v1/login')) {
+            return $next($request);
+        }
+
+        $token = $request->bearerToken();
+
+        if (!$token) {
+            return response()->json([
+                'success' => false,
+                'status_code' => 422,
+                'message' => 'Token not provided',
+                'data' => [],
+            ], 422);
+        }
+
+        if (!Auth::guard('api')->check()) {
+            return response()->json([
+                'success' => false,
+                'status_code' => 401,
+                'message' => 'Invalid or expired token',
+                'data' => [],
+            ], 401);
+        }
+
+        if(!$request['user_id'])
+        {
+            $user = Auth::guard('api')->user();
+            $userId = $user->parentId ?? $user->id;
+
+            $request->merge(['user_id' => $userId]);
+        }
+        return $next($request);
+
+
+        
     }
 }

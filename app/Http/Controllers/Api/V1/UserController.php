@@ -18,17 +18,15 @@ class UserController extends BaseController
 {
     public function __construct()
     {
-        $this->num_of_day = 1;
-        $this->to_day = date('d-m-Y');
-        
-        
-        $this->code = 'status_code';
-        $this->status = 'status';
-        $this->result = 'result';
-        $this->message = 'message';
-        $this->data = 'data';
-        $this->total = 'total_count';
-        $this->commonLib = new CommonLibrary();
+        $this->num_of_day                       = 1;
+        $this->to_day                           = date('d-m-Y');
+        $this->code                             = 'status_code';
+        $this->status                           = 'status';
+        $this->result                           = 'result';
+        $this->message                          = 'message';
+        $this->data                             = 'data';
+        $this->total                            = 'total_count';
+        $this->commonLib                        = new CommonLibrary();
         
         
     }
