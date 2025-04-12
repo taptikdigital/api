@@ -28,8 +28,10 @@ class DashboardLibrary
     }
 
     
-    /**
+    
+   /**
         * @param[]
+        * token
         *
         * @return 
         * 200
@@ -39,31 +41,23 @@ class DashboardLibrary
         * 
     **/
     
-    public function allCategoryGet()
+    public function projectFetch($param)
     {
-        $serviceResponse = $this->dashboardSer->getAllCategoryList();
-        if($serviceResponse[$this->status])
-        {
-            $return[$this->code] = $serviceResponse[$this->code];
-            $return[$this->status] = $serviceResponse[$this->status];
-            $return[$this->message] = $serviceResponse[$this->message];
-            $return[$this->data] = $serviceResponse[$this->data];
-        }
-        else
-        {
-            $return[$this->code] = $serviceResponse[$this->code];
-            $return[$this->status] = $serviceResponse[$this->status];
-            $return[$this->message] = $serviceResponse[$this->message];
-            $return[$this->data] = [];
-        }
+        $this->commonSer->inputValidators('projectFetch', $param);
+        $serviceResponse = $this->dashboardSer->getAllProject($param);
+        return [
+            $this->status                   => $serviceResponse[$this->status],
+            $this->message                  => $serviceResponse[$this->message],
+            $this->code                     => $serviceResponse[$this->code],
+            $this->data                     => $serviceResponse[$this->status] ? $serviceResponse[$this->data] : [],
+        ];
         
         return $return;
     }
     
    /**
         * @param[]
-        * userId
-        * countryId
+        * token
         *
         * @return 
         * 200
@@ -73,26 +67,61 @@ class DashboardLibrary
         * 
     **/
     
-    public function dashboardFetch()
+    public function dashboardFetch($param)
     {
-        $serviceResponse = $this->dashboardSer->getAllDashboardData();
-        if($serviceResponse[$this->status])
-        {
-            $return[$this->code] = $serviceResponse[$this->code];
-            $return[$this->status] = $serviceResponse[$this->status];
-            $return[$this->message] = $serviceResponse[$this->message];
-            $return[$this->data] = $serviceResponse[$this->data];
-        }
-        else
-        {
-            $return[$this->code] = $serviceResponse[$this->code];
-            $return[$this->status] = $serviceResponse[$this->status];
-            $return[$this->message] = $serviceResponse[$this->message];
-            $return[$this->data] = [];
-        }
-        
-        return $return;
+        $this->commonSer->inputValidators('dashboardFetch', $param);
+        $serviceResponse                    = $this->dashboardSer->getAllDashboardData($param);
+
+        return [
+            $this->status                   => $serviceResponse[$this->status],
+            $this->message                  => $serviceResponse[$this->message],
+            $this->code                     => $serviceResponse[$this->code],
+            $this->data                     => $serviceResponse[$this->status] ? $serviceResponse[$this->data] : [],
+        ];
     }
+   /**
+        * @param[]
+        * token
+        *
+        * @return 
+        * 200
+        * 
+        * @error
+        * 404/201
+        * 
+    **/
+    
+    public function dashboardReportsFetch($param)
+    {
+        $this->commonSer->inputValidators('dashboardReportsFetch', $param);
+        $serviceResponse                    = $this->dashboardSer->getAllDashboardReport($param);
+
+        return [
+            $this->status                   => $serviceResponse[$this->status],
+            $this->message                  => $serviceResponse[$this->message],
+            $this->code                     => $serviceResponse[$this->code],
+            $this->data                     => $serviceResponse[$this->status] ? $serviceResponse[$this->data] : [],
+        ];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     
    /**

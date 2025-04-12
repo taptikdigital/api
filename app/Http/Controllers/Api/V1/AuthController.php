@@ -13,9 +13,9 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 
 /**
- * @group Auth Related
+ * @group Authenticate
  *
- * APIs for managing all user's authentication related
+ * APIs for managing all user's authentication related like login, refresh & logout
  */
 
 
@@ -35,17 +35,15 @@ class AuthController extends Controller
      *
      * <aside class="notice">basepath/api/v1/login</aside>
      * @method POST
-     * @bodyParam *email email required Example: you@domain.com in JSON BODY
-     * @bodyParam *password password required Example: You@@1233 in JSON BODY
      * @return \Illuminate\Http\Response
      *
      * @response 200
      *  {
-            "token_created_at": "10-04-2025 12:03:20",
-            "access_token": "eyJ0eXACJh.....3-l4urituri",
+            "token_created_at": "11-04-2025 22:26:56",
+            "access_token": "eyJ0ekrjkgkdgjdfg9g.....",
             "token_type": "bearer",
-            "expires_in": 3600, (in minutes)
-            "refresh_expires_in": 1209600, (in minutes)
+            "expires_in": 3600,
+            "refresh_expires_in": 1209600,
             "user": {
                 "id": 1,
                 "name": "Test User",
@@ -54,7 +52,62 @@ class AuthController extends Controller
                 "parentId": null,
                 "email_verify_at": null,
                 "mobile_verify_at": null,
-                "free_plan_expire_at": "2025-03-15"
+                "subscription_id": 2,
+                "free_plan_expire_at": "2025-03-15",
+                "subscription": {
+                    "id": 2,
+                    "name": "Basic",
+                    "slug": "basic"
+                },
+                "user_active_subscription": null
+            },
+            "subscription": {
+                "id": 2,
+                "name": "Basic",
+                "slug": "basic"
+            },
+            "activePlan": null
+        }
+     *
+     * @response 200
+     *  {
+            "token_created_at": "11-04-2025 22:28:25",
+            "access_token": "eyJyrtutyuPU......",
+            "token_type": "bearer",
+            "expires_in": 3600,
+            "refresh_expires_in": 1209600,
+            "user": {
+                "id": 1,
+                "name": "Test User",
+                "email": "test@taptik.in",
+                "mobile": "9876543212",
+                "parentId": null,
+                "email_verify_at": null,
+                "mobile_verify_at": null,
+                "subscription_id": 2,
+                "free_plan_expire_at": "2025-03-15",
+                "subscription": {
+                    "id": 2,
+                    "name": "Basic",
+                    "slug": "basic"
+                },
+                "user_active_subscription": {
+                    "id": 5,
+                    "subscription_status": "active",
+                    "next_payment_date": null,
+                    "created_at": "16-Mar-2025 06:45:11 AM"
+                }
+            },
+            "subscription": {
+                "id": 2,
+                "name": "Basic",
+                "slug": "basic"
+            },
+            "activePlan": {
+                "id": 5,
+                "subscription_status": "active",
+                "next_payment_date": null,
+                "created_at": "16-Mar-2025 06:45:11 AM"
             }
         }
      *
@@ -107,18 +160,49 @@ class AuthController extends Controller
      * <aside class="notice">basepath/api/v1/refresh</aside>
      * @method POST
      * @authenticated
-     * @header      Authorization Bearer _token required  
-     * @header      Accept: application/json required  
+     * @header      Authorization Bearer _token required
      * @return \Illuminate\Http\Response
      *
      * @response 200
      *  {
-            "token_created_at": "10-04-2025 12:29:48",
-            "access_token": "eyJ0eXACJh.....3-l4urituri",
+            "token_created_at": "11-04-2025 22:28:25",
+            "access_token": "eyJyrtutyuPU......",
             "token_type": "bearer",
             "expires_in": 3600,
             "refresh_expires_in": 1209600,
-            "user": null
+            "user": {
+                "id": 1,
+                "name": "Test User",
+                "email": "test@taptik.in",
+                "mobile": "9876543212",
+                "parentId": null,
+                "email_verify_at": null,
+                "mobile_verify_at": null,
+                "subscription_id": 2,
+                "free_plan_expire_at": "2025-03-15",
+                "subscription": {
+                    "id": 2,
+                    "name": "Basic",
+                    "slug": "basic"
+                },
+                "user_active_subscription": {
+                    "id": 5,
+                    "subscription_status": "active",
+                    "next_payment_date": null,
+                    "created_at": "16-Mar-2025 06:45:11 AM"
+                }
+            },
+            "subscription": {
+                "id": 2,
+                "name": "Basic",
+                "slug": "basic"
+            },
+            "activePlan": {
+                "id": 5,
+                "subscription_status": "active",
+                "next_payment_date": null,
+                "created_at": "16-Mar-2025 06:45:11 AM"
+            }
         }
      *
      *
@@ -158,16 +242,17 @@ class AuthController extends Controller
 
     protected function createNewToken($token)
     {
-        $accessTTL = auth('api')->factory()->getTTL(); // in minutes
-        $refreshTTL = config('jwt.refresh_ttl'); // in minutes
+        $accessTTL          = auth('api')->factory()->getTTL(); // in minutes
+        $refreshTTL         = config('jwt.refresh_ttl'); // in minutes
         return response()->json([
             'token_created_at' => date('d-m-Y H:i:s'),
-            'access_token' => $token,
-            'token_type'   => 'bearer',
-            'expires_in'   => $accessTTL * 60,
-            // You may include refresh_expires_in if desired, but note that JWTAuth doesn't provide a separate refresh token:
+            'access_token'  => $token,
+            'token_type'    => 'bearer',
+            'expires_in'    => $accessTTL * 60,
             'refresh_expires_in' => $refreshTTL * 60,
-            'user'         => auth('api')->user(),
+            'user'          => auth('api')->user(),
+            'subscription'  => auth('api')->user()->subscription,
+            'activePlan'    => auth('api')->user()->userActiveSubscription,
         ]);
     }
 
@@ -185,8 +270,7 @@ class AuthController extends Controller
      * <aside class="notice">basepath/api/v1/logout</aside>
      * @method POST
      * @authenticated
-     * @header      Authorization Bearer _token required  
-     * @header      Accept: application/json required  
+     * @header      Authorization Bearer _token required
      * @return \Illuminate\Http\Response
      *
      * @response 200

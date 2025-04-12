@@ -21,14 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
 
-        // $response = [
-        //     'status'      => false,
-        //     'status_code' => 500,
-        //     'message'     => 'Token has expired??',
-        // ];
-
-        // return response()->json($response, 500);
-        
+        $middleware->append(CustomJwtAuthenticate::class);
         
     })
     ->withExceptions(function (Exceptions $exceptions) {
@@ -43,20 +36,20 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message'     => 'Unauthenticated...'
                 ];
         
-                if ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException) {
-                    // Check if the exception message indicates that the token cannot be refreshed.
-                    if (strpos($e->getMessage(), 'can no longer be refreshed') !== false) {
-                        $response['message'] = 'Token has expired and can no longer be refreshed';
-                    } else {
-                        $response['message'] = 'Token has expired';
-                    }
-                } elseif ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException) {
-                    $response['message'] = 'Token is invalid';
-                } elseif ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException) {
-                    $response['message'] = 'Authorization token not found';
-                } elseif ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException) {
-                    $response['message'] = 'The token has been blacklisted';
-                }
+                // if ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException) {
+                //     // Check if the exception message indicates that the token cannot be refreshed.
+                //     if (strpos($e->getMessage(), 'can no longer be refreshed') !== false) {
+                //         $response['message'] = 'Token has expired and can no longer be refreshed';
+                //     } else {
+                //         $response['message'] = 'Token has expired';
+                //     }
+                // } elseif ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException) {
+                //     $response['message'] = 'Token is invalid';
+                // } elseif ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException) {
+                //     $response['message'] = 'Authorization token not found';
+                // } elseif ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenBlacklistedException) {
+                //     $response['message'] = 'The token has been blacklisted';
+                // }
         
                 return response()->json($response, 401);
             }

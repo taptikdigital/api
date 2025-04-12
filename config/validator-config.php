@@ -3,6 +3,7 @@
 return [
     "rules" => [
         'user_id'               => "bail|required|numeric|regex:/^\d{1,15}?$/|exists:users,id",
+        'project_id'            => "bail|required|numeric|regex:/^\d{1,15}?$/",
         
         'name'                  => "bail|required|regex:/^[a-z A-Z\.]*$/|min:3|max:120",
         'first_name'            => "bail|required|regex:/^[a-z A-Z\.]*$/|min:3|max:120",
@@ -75,6 +76,37 @@ return [
         ], 
 
         
+
+        /**
+         * 
+         *  Dashboard 
+         * 
+         */
+
+         
+
+        "projectFetch" => [
+            "required" => [
+                "user_id",
+            ],
+            "optional" => [
+            ]
+        ], 
+
+        "dashboardFetch" => [
+            "required" => [
+                "user_id", "project_id"
+            ],
+            "optional" => [
+            ]
+        ], 
+        "dashboardReportsFetch" => [
+            "required" => [
+                "user_id", "project_id"
+            ],
+            "optional" => [
+            ]
+        ], 
 
 
 
