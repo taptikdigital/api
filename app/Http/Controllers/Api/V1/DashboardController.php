@@ -67,6 +67,7 @@ class DashboardController extends BaseController
                             "slug": "adsproject",
                             "whatsapp_number": "9876543212",
                             "current_status": "created",
+                            "created_at": "19-Nov-2024 06:48:10 AM",
                             "industry": {
                                 "id": 1,
                                 "name": "Advertisement",

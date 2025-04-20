@@ -73,7 +73,6 @@ class DashboardService
             $result->makeHidden([
                 'subscription_id',
                 'is_active',
-                'created_at',
                 'updated_at',
                 'deleted_at',
                 'status'

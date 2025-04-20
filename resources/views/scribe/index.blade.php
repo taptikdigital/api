@@ -117,7 +117,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: April 12, 2025</li>
+        <li>Last updated: April 20, 2025</li>
     </ul>
 </div>
 
@@ -790,6 +790,7 @@ fetch(url, {
                     &quot;slug&quot;: &quot;adsproject&quot;,
                     &quot;whatsapp_number&quot;: &quot;9876543212&quot;,
                     &quot;current_status&quot;: &quot;created&quot;,
+                    &quot;created_at&quot;: &quot;19-Nov-2024 06:48:10 AM&quot;,
                     &quot;industry&quot;: {
                         &quot;id&quot;: 1,
                         &quot;name&quot;: &quot;Advertisement&quot;,
