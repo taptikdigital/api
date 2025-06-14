@@ -117,7 +117,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: April 20, 2025</li>
+        <li>Last updated: June 14, 2025</li>
     </ul>
 </div>
 
@@ -798,10 +798,10 @@ fetch(url, {
                     }
                 }
             ],
-            &quot;first_page_url&quot;: &quot;http://taptik-local-api/api/v1/get-project?page=1&quot;,
+            &quot;first_page_url&quot;: &quot;BASE_URL/api/v1/get-project?page=1&quot;,
             &quot;from&quot;: 1,
             &quot;next_page_url&quot;: null,
-            &quot;path&quot;: &quot;http://taptik-local-api/api/v1/get-project&quot;,
+            &quot;path&quot;: &quot;BASE_URL/api/v1/get-project&quot;,
             &quot;per_page&quot;: 3,
             &quot;prev_page_url&quot;: null,
             &quot;to&quot;: 1
@@ -1339,34 +1339,94 @@ fetch(url, {
         &quot;sentCount&quot;: 18,
         &quot;readCount&quot;: 15,
         &quot;failedCount&quot;: 4,
-        &quot;sentDate&quot;: {
-            &quot;14 Mar&quot;: 9,
-            &quot;15 Feb&quot;: 4,
-            &quot;16 Feb&quot;: 1,
-            &quot;17 Feb&quot;: 1,
-            &quot;24 Mar&quot;: 3
-        },
-        &quot;deliveredDate&quot;: {
-            &quot;14 Mar&quot;: 9,
-            &quot;15 Feb&quot;: 4,
-            &quot;16 Feb&quot;: 1,
-            &quot;17 Feb&quot;: 1,
-            &quot;24 Mar&quot;: 3
-        },
-        &quot;readDate&quot;: {
-            &quot;14 Mar&quot;: 8,
-            &quot;15 Feb&quot;: 3,
-            &quot;16 Feb&quot;: 1,
-            &quot;17 Feb&quot;: 1,
-            &quot;24 Mar&quot;: 2
-        },
-        &quot;failedDate&quot;: {
-            &quot;14 Mar&quot;: 1,
-            &quot;15 Feb&quot;: 3,
-            &quot;16 Feb&quot;: 0,
-            &quot;17 Feb&quot;: 0,
-            &quot;24 Mar&quot;: 0
-        }
+        &quot;sentDate&quot;: [
+            {
+                &quot;date&quot;: &quot;14 Mar&quot;,
+                &quot;count&quot;: 9
+            },
+            {
+                &quot;date&quot;: &quot;15 Feb&quot;,
+                &quot;count&quot;: 4
+            },
+            {
+                &quot;date&quot;: &quot;16 Feb&quot;,
+                &quot;count&quot;: 1
+            },
+            {
+                &quot;date&quot;: &quot;17 Feb&quot;,
+                &quot;count&quot;: 1
+            },
+            {
+                &quot;date&quot;: &quot;24 Mar&quot;,
+                &quot;count&quot;: 3
+            }
+        ],
+        &quot;deliveredDate&quot;: [
+            {
+                &quot;date&quot;: &quot;14 Mar&quot;,
+                &quot;count&quot;: 9
+            },
+            {
+                &quot;date&quot;: &quot;15 Feb&quot;,
+                &quot;count&quot;: 4
+            },
+            {
+                &quot;date&quot;: &quot;16 Feb&quot;,
+                &quot;count&quot;: 1
+            },
+            {
+                &quot;date&quot;: &quot;17 Feb&quot;,
+                &quot;count&quot;: 1
+            },
+            {
+                &quot;date&quot;: &quot;24 Mar&quot;,
+                &quot;count&quot;: 3
+            }
+        ],
+        &quot;readDate&quot;: [
+            {
+                &quot;date&quot;: &quot;14 Mar&quot;,
+                &quot;count&quot;: 8
+            },
+            {
+                &quot;date&quot;: &quot;15 Feb&quot;,
+                &quot;count&quot;: 3
+            },
+            {
+                &quot;date&quot;: &quot;16 Feb&quot;,
+                &quot;count&quot;: 1
+            },
+            {
+                &quot;date&quot;: &quot;17 Feb&quot;,
+                &quot;count&quot;: 1
+            },
+            {
+                &quot;date&quot;: &quot;24 Mar&quot;,
+                &quot;count&quot;: 2
+            }
+        ],
+        &quot;failedDate&quot;: [
+            {
+                &quot;date&quot;: &quot;14 Mar&quot;,
+                &quot;count&quot;: 1
+            },
+            {
+                &quot;date&quot;: &quot;15 Feb&quot;,
+                &quot;count&quot;: 3
+            },
+            {
+                &quot;date&quot;: &quot;16 Feb&quot;,
+                &quot;count&quot;: 0
+            },
+            {
+                &quot;date&quot;: &quot;17 Feb&quot;,
+                &quot;count&quot;: 0
+            },
+            {
+                &quot;date&quot;: &quot;24 Mar&quot;,
+                &quot;count&quot;: 0
+            }
+        ]
     }
 }</code>
  </pre>

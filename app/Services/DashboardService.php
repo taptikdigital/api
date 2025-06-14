@@ -302,11 +302,34 @@ class DashboardService
             array_keys($failedDates)
         ))->unique()->sort()->values()->toArray();
 
+        // // Ensure all datasets have the same date keys
+        // $finalSentDates = $this->fillMissingDates($allDates, $sentDates);
+        // $finalDeliveredDates = $this->fillMissingDates($allDates, $deliveredDates);
+        // $finalReadDates = $this->fillMissingDates($allDates, $readDates);
+        // $finalFaildDates = $this->fillMissingDates($allDates, $failedDates);
+
+
+
         // Ensure all datasets have the same date keys
-        $finalSentDates = $this->fillMissingDates($allDates, $sentDates);
-        $finalDeliveredDates = $this->fillMissingDates($allDates, $deliveredDates);
-        $finalReadDates = $this->fillMissingDates($allDates, $readDates);
-        $finalFaildDates = $this->fillMissingDates($allDates, $failedDates);
+        $finalSentDates = collect($this->fillMissingDates($allDates, $sentDates))
+            ->map(fn($count, $date) => ['date' => $date, 'count' => $count])
+            ->values()
+            ->toArray();
+
+        $finalDeliveredDates = collect($this->fillMissingDates($allDates, $deliveredDates))
+            ->map(fn($count, $date) => ['date' => $date, 'count' => $count])
+            ->values()
+            ->toArray();
+
+        $finalReadDates = collect($this->fillMissingDates($allDates, $readDates))
+            ->map(fn($count, $date) => ['date' => $date, 'count' => $count])
+            ->values()
+            ->toArray();
+
+        $finalFaildDates = collect($this->fillMissingDates($allDates, $failedDates))
+            ->map(fn($count, $date) => ['date' => $date, 'count' => $count])
+            ->values()
+            ->toArray();
         
         $response                   = [
             $this->status           => true,

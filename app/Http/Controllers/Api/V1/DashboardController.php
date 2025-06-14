@@ -75,10 +75,10 @@ class DashboardController extends BaseController
                             }
                         }
                     ],
-                    "first_page_url": "http://taptik-local-api/api/v1/get-project?page=1",
+                    "first_page_url": "BASE_URL/api/v1/get-project?page=1",
                     "from": 1,
                     "next_page_url": null,
-                    "path": "http://taptik-local-api/api/v1/get-project",
+                    "path": "BASE_URL/api/v1/get-project",
                     "per_page": 3,
                     "prev_page_url": null,
                     "to": 1
@@ -387,36 +387,96 @@ class DashboardController extends BaseController
                 "sentCount": 18,
                 "readCount": 15,
                 "failedCount": 4,
-                "sentDate": {
-                    "14 Mar": 9,
-                    "15 Feb": 4,
-                    "16 Feb": 1,
-                    "17 Feb": 1,
-                    "24 Mar": 3
-                },
-                "deliveredDate": {
-                    "14 Mar": 9,
-                    "15 Feb": 4,
-                    "16 Feb": 1,
-                    "17 Feb": 1,
-                    "24 Mar": 3
-                },
-                "readDate": {
-                    "14 Mar": 8,
-                    "15 Feb": 3,
-                    "16 Feb": 1,
-                    "17 Feb": 1,
-                    "24 Mar": 2
-                },
-                "failedDate": {
-                    "14 Mar": 1,
-                    "15 Feb": 3,
-                    "16 Feb": 0,
-                    "17 Feb": 0,
-                    "24 Mar": 0
-                }
+                "sentDate": [
+                    {
+                        "date": "14 Mar",
+                        "count": 9
+                    },
+                    {
+                        "date": "15 Feb",
+                        "count": 4
+                    },
+                    {
+                        "date": "16 Feb",
+                        "count": 1
+                    },
+                    {
+                        "date": "17 Feb",
+                        "count": 1
+                    },
+                    {
+                        "date": "24 Mar",
+                        "count": 3
+                    }
+                ],
+                "deliveredDate": [
+                    {
+                        "date": "14 Mar",
+                        "count": 9
+                    },
+                    {
+                        "date": "15 Feb",
+                        "count": 4
+                    },
+                    {
+                        "date": "16 Feb",
+                        "count": 1
+                    },
+                    {
+                        "date": "17 Feb",
+                        "count": 1
+                    },
+                    {
+                        "date": "24 Mar",
+                        "count": 3
+                    }
+                ],
+                "readDate": [
+                    {
+                        "date": "14 Mar",
+                        "count": 8
+                    },
+                    {
+                        "date": "15 Feb",
+                        "count": 3
+                    },
+                    {
+                        "date": "16 Feb",
+                        "count": 1
+                    },
+                    {
+                        "date": "17 Feb",
+                        "count": 1
+                    },
+                    {
+                        "date": "24 Mar",
+                        "count": 2
+                    }
+                ],
+                "failedDate": [
+                    {
+                        "date": "14 Mar",
+                        "count": 1
+                    },
+                    {
+                        "date": "15 Feb",
+                        "count": 3
+                    },
+                    {
+                        "date": "16 Feb",
+                        "count": 0
+                    },
+                    {
+                        "date": "17 Feb",
+                        "count": 0
+                    },
+                    {
+                        "date": "24 Mar",
+                        "count": 0
+                    }
+                ]
             }
-        } 
+        }
      *
      * @response 200
      * {
